@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '/home/ubuntu/kwiweb/.env' });
 const express = require('express');
 const path    = require('path');
 const app     = express();
