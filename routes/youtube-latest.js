@@ -1,38 +1,52 @@
 /**
  * ============================================================
- *  youtube-latest.js — Route Express pour la dernière vidéo
+ *  youtube-latest.js — Dernière vidéo + dernier Short YouTube
  * ============================================================
  */
 
 const express = require('express');
 const router  = express.Router();
 
-const YOUTUBE_API_KEY   = process.env.YOUTUBE_API_KEY;
-const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID; // UCxxxxxx
+const YOUTUBE_API_KEY    = process.env.YOUTUBE_API_KEY;
+const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 
 // Cache 10 minutes
 let cache = { data: null, expires: 0 };
 const CACHE_TTL = 10 * 60 * 1000;
 
-// ── Récupérer la dernière vidéo ───────────────────────────
-async function getLatestVideo() {
-  const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet&order=date&maxResults=1&type=video`;
+// ── Parser la durée ISO 8601 en secondes ─────────────────
+function parseDuration(iso) {
+  const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!match) return 0;
+  const h = parseInt(match[1] || 0);
+  const m = parseInt(match[2] || 0);
+  const s = parseInt(match[3] || 0);
+  return h * 3600 + m * 60 + s;
+}
 
-  const res  = await fetch(url);
-  const data = await res.json();
+// ── Récupérer les N dernières vidéos avec leur durée ─────
+async function getVideosWithDuration(maxResults = 20) {
+  const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet&order=date&maxResults=${maxResults}&type=video`;
+  const searchRes  = await fetch(searchUrl);
+  const searchData = await searchRes.json();
+  if (searchData.error) throw new Error(searchData.error.message);
 
-  if (data.error) throw new Error(data.error.message);
+  const items = searchData?.items ?? [];
+  if (!items.length) throw new Error('Aucune vidéo trouvée');
 
-  const item = data?.items?.[0];
-  if (!item) throw new Error('Aucune vidéo trouvée');
+  const ids = items.map(i => i.id.videoId).join(',');
+  const videoUrl  = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${ids}&part=contentDetails,snippet`;
+  const videoRes  = await fetch(videoUrl);
+  const videoData = await videoRes.json();
 
-  return {
-    videoId:     item.id.videoId,
-    title:       item.snippet.title,
-    description: item.snippet.description,
-    thumbnail:   item.snippet.thumbnails?.high?.url,
-    publishedAt: item.snippet.publishedAt,
-  };
+  return (videoData?.items ?? []).map(v => ({
+    videoId:     v.id,
+    title:       v.snippet.title,
+    thumbnail:   v.snippet.thumbnails?.high?.url,
+    publishedAt: v.snippet.publishedAt,
+    duration:    parseDuration(v.contentDetails.duration),
+    isShort:     parseDuration(v.contentDetails.duration) <= 90,
+  }));
 }
 
 // ── Route GET /api/youtube-latest ────────────────────────
@@ -42,8 +56,12 @@ router.get('/', async (req, res) => {
   }
 
   try {
-    const video = await getLatestVideo();
-    const payload = { success: true, video };
+    const videos = await getVideosWithDuration(20);
+
+    const latestVideo = videos.find(v => !v.isShort) ?? null;
+    const latestShort = videos.find(v => v.isShort)  ?? null;
+
+    const payload = { success: true, latestVideo, latestShort };
     cache = { data: payload, expires: Date.now() + CACHE_TTL };
     res.json(payload);
 
