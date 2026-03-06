@@ -1015,12 +1015,23 @@
           card.className = 'day-card' + (day.active ? ' active' : '');
           if (day.active && day.title) card.setAttribute('data-title', day.title);
 
+          // Convertir l'heure UTC dans le fuseau du visiteur
+          let timeDisplay = day.time;
+          if (day.active && day.start_time) {
+            const dt = new Date(day.start_time);
+            timeDisplay = dt.toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false,
+            }).replace(':', 'h');
+          }
+
           card.innerHTML = `
             <div class="day-name">${day.label}</div>
             <div class="day-status">${day.active ? '🎮' : '—'}</div>
-            <div class="day-time">${day.active ? day.time : 'Off'}</div>
+            <div class="day-time">${day.active ? timeDisplay : 'Off'}</div>
             ${day.active && day.category ? `<div style="font-size:0.65rem;color:var(--sand-4);margin-top:4px;letter-spacing:0.04em;">${day.category}</div>` : ''}
-            ${day.active ? `<button class="btn-calendar" onclick="openCalendarModal('${day.label}', '${day.time}')">
+            ${day.active ? `<button class="btn-calendar" onclick="openCalendarModal('${day.label}', '${timeDisplay}')">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
               + Agenda
             </button>` : ''}
