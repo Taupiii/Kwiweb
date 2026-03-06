@@ -16,6 +16,10 @@ app.use('/api/twitch-schedule', twitchSchedule);
 const youtubeLatest = require('./routes/youtube-latest');
 app.use('/api/youtube-latest', youtubeLatest);
 
+// ── Route dernier clip Twitch ─────────────────────────────
+const twitchClips = require('./routes/twitch-clips');
+app.use('/api/twitch-clips', twitchClips);
+
 // ── Fallback → index.html ─────────────────────────────────
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

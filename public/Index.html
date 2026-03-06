@@ -928,11 +928,11 @@
             <a href="https://www.twitch.tv/kwikwiii/clips" target="_blank" class="content-panel-link">Tous les clips</a>
           </div>
           <div class="content-panel-body">
-            <!-- ⚠️ Remplace CLIP_SLUG par le slug de ton clip Twitch -->
-            <div class="embed-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M2.149 0L.537 4.119v16.836h5.731V24h3.224l3.045-3.045h4.657l6.269-6.269V0H2.149zm19.164 13.612l-3.582 3.582H12l-3.045 3.045v-3.045H4.119V2.149h17.194v11.463zm-3.582-7.761v6.418h-2.149V5.851h2.149zm-5.731 0v6.418h-2.15V5.851h2.15z"/></svg>
-              <p>Intègre ton clip Twitch ici</p>
-              <p style="font-size:0.75rem;">URL du clip : <code>twitch.tv/.../clip/<strong>SLUG</strong></code></p>
+            <div id="twitch-clip" style="aspect-ratio:16/9;">
+              <div class="embed-placeholder" id="twitch-clip-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M2.149 0L.537 4.119v16.836h5.731V24h3.224l3.045-3.045h4.657l6.269-6.269V0H2.149zm19.164 13.612l-3.582 3.582H12l-3.045 3.045v-3.045H4.119V2.149h17.194v11.463zm-3.582-7.761v6.418h-2.149V5.851h2.149zm-5.731 0v6.418h-2.15V5.851h2.15z"/></svg>
+                <p>Chargement…</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1161,6 +1161,32 @@
     }
 
     loadYouTube();
+
+    // ── Dernier clip Twitch ────────────────────────────────
+    async function loadTwitchClip() {
+      try {
+        const res  = await fetch('/api/twitch-clips');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error);
+
+        const container = document.getElementById('twitch-clip');
+        container.innerHTML = `<iframe
+          src="${data.clip.embedUrl}"
+          title="${data.clip.title}"
+          allowfullscreen
+          style="width:100%;height:100%;border:none;display:block;border-radius:var(--radius);"
+        ></iframe>`;
+      } catch (err) {
+        console.warn('Twitch clips indisponible :', err.message);
+        document.getElementById('twitch-clip-placeholder').innerHTML = `
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M2.149 0L.537 4.119v16.836h5.731V24h3.224l3.045-3.045h4.657l6.269-6.269V0H2.149zm19.164 13.612l-3.582 3.582H12l-3.045 3.045v-3.045H4.119V2.149h17.194v11.463zm-3.582-7.761v6.418h-2.149V5.851h2.149zm-5.731 0v6.418h-2.15V5.851h2.15z"/></svg>
+          <p>Clips temporairement indisponibles</p>
+          <a href="https://www.twitch.tv/kwikwiii/clips" target="_blank" style="color:var(--accent);font-size:0.82rem;">Voir tous les clips</a>
+        `;
+      }
+    }
+
+    loadTwitchClip();
   </script>
 
 </body>
