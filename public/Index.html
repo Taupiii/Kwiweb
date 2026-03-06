@@ -401,6 +401,117 @@
     .day-time { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
     .day-card.active .day-time { color: var(--sand-3); }
 
+    .btn-calendar {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sand-4);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 4px 8px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-calendar:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--sand-1);
+    }
+
+    /* Modale agenda */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(46,37,25,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--sand-0);
+      border: 1px solid var(--sand-2);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      transform: translateY(16px);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .modal-title em { font-style: italic; color: var(--accent); }
+    .modal-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .modal-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--sand-1);
+      border: 1px solid var(--sand-2);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 400;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .modal-option:hover {
+      border-color: var(--sand-4);
+      background: var(--sand-2);
+    }
+    .modal-option svg { flex-shrink: 0; }
+    .modal-option-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .modal-close {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 1px solid var(--sand-3);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--sand-4); }
+
     /* RÉSEAUX */
     .platforms-grid {
       display: grid;
@@ -809,6 +920,31 @@
     </div>
   </section>
 
+  <!-- MODALE AGENDA -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-title">Ajouter à <em>l'agenda</em></div>
+      <p class="modal-sub" id="modal-desc">Reçois une notification 15 min avant chaque live.</p>
+      <div class="modal-options">
+        <a class="modal-option" id="modal-google" href="#" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <div>
+            <div>Google Calendar</div>
+            <div class="modal-option-label">Ouvre Google Calendar</div>
+          </div>
+        </a>
+        <a class="modal-option" id="modal-ics" href="/api/twitch-schedule/calendar.ics" download="kwikwiii-streams.ics">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <div>
+            <div>Apple Calendar / Outlook</div>
+            <div class="modal-option-label">Télécharge le fichier .ics</div>
+          </div>
+        </a>
+      </div>
+      <button class="modal-close" id="modal-close">Fermer</button>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="container" style="padding-top:0; padding-bottom:0;">
@@ -871,26 +1007,23 @@
         const res  = await fetch('/api/twitch-schedule');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-
         if (!data.success) throw new Error(data.error || 'Erreur API');
 
-        // Vider le skeleton
         grid.innerHTML = '';
-
         data.schedule.forEach(day => {
           const card = document.createElement('div');
           card.className = 'day-card' + (day.active ? ' active' : '');
-
-          // Tooltip avec le titre du stream si dispo
-          if (day.active && day.title) {
-            card.setAttribute('data-title', day.title);
-          }
+          if (day.active && day.title) card.setAttribute('data-title', day.title);
 
           card.innerHTML = `
             <div class="day-name">${day.label}</div>
             <div class="day-status">${day.active ? '🎮' : '—'}</div>
             <div class="day-time">${day.active ? day.time : 'Off'}</div>
             ${day.active && day.category ? `<div style="font-size:0.65rem;color:var(--sand-4);margin-top:4px;letter-spacing:0.04em;">${day.category}</div>` : ''}
+            ${day.active ? `<button class="btn-calendar" onclick="openCalendarModal('${day.label}', '${day.time}')">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              + Agenda
+            </button>` : ''}
           `;
           grid.appendChild(card);
         });
@@ -899,33 +1032,34 @@
 
       } catch (err) {
         console.warn('Planning Twitch indisponible :', err.message);
-
-        // Fallback : planning statique si l'API échoue
-        const fallback = [
-          { label:'Lun', active:false },
-          { label:'Mar', active:false },
-          { label:'Mer', active:false },
-          { label:'Jeu', active:false },
-          { label:'Ven', active:false },
-          { label:'Sam', active:false },
-          { label:'Dim', active:false },
-        ];
-
         grid.innerHTML = '';
-        fallback.forEach(day => {
+        ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(label => {
           const card = document.createElement('div');
           card.className = 'day-card';
-          card.innerHTML = `
-            <div class="day-name">${day.label}</div>
-            <div class="day-status">—</div>
-            <div class="day-time">—</div>
-          `;
+          card.innerHTML = `<div class="day-name">${label}</div><div class="day-status">—</div><div class="day-time">—</div>`;
           grid.appendChild(card);
         });
-
         footer.innerHTML = `Planning temporairement indisponible — <a href="https://www.twitch.tv/kwikwiii/schedule" target="_blank" style="color:var(--accent);">voir sur Twitch</a>`;
       }
     }
+
+    // ── Modale agenda ─────────────────────────────────────
+    function openCalendarModal(dayLabel, time) {
+      const modal  = document.getElementById('modal-overlay');
+      const desc   = document.getElementById('modal-desc');
+      const google = document.getElementById('modal-google');
+
+      desc.textContent = `${dayLabel} à ${time} — Reçois une notification 15 min avant chaque live.`;
+      google.href = `https://calendar.google.com/calendar/r?cid=webcal://kwikwiii.online/api/twitch-schedule/calendar.ics`;
+      modal.classList.add('open');
+    }
+
+    document.getElementById('modal-close').addEventListener('click', () => {
+      document.getElementById('modal-overlay').classList.remove('open');
+    });
+    document.getElementById('modal-overlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+    });
 
     loadSchedule();
   </script>
