@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/home/ubuntu/kwiweb/.env' });
+require('dotenv').config();
 const express = require('express');
 const path    = require('path');
 const app     = express();
@@ -12,11 +12,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 const twitchSchedule = require('./routes/twitch-schedule');
 app.use('/api/twitch-schedule', twitchSchedule);
 
+// ── Route dernière vidéo YouTube ──────────────────────────
+const youtubeLatest = require('./routes/youtube-latest');
+app.use('/api/youtube-latest', youtubeLatest);
+
 // ── Fallback → index.html ─────────────────────────────────
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`[kwiweb] Serveur démarré sur le port ${PORT}`);
+  console.log(`[kwikwiii-site] Serveur démarré sur le port ${PORT}`);
 });

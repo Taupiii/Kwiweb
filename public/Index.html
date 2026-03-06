@@ -743,7 +743,7 @@
       <div class="hero-right-inner">
         <div class="hero-avatar">
           <img
-            src="https://static-cdn.jtvnw.net/jtv_user_pictures/kwikwiii-profile_image-300x300.png"
+            src="/img/kwikwiii.jpg"
             alt="Kwikwiii"
             onerror="this.style.display='none'"
           />
@@ -753,7 +753,7 @@
           <span class="tag">Twitch</span>
           <span class="tag">YouTube</span>
           <span class="tag">TikTok</span>
-          <span class="tag">Mix de tout</span>
+          <span class="tag">Instagram</span>
         </div>
         <div class="hero-socials">
           <a href="https://www.twitch.tv/kwikwiii" target="_blank" class="social-icon" title="Twitch">
@@ -892,11 +892,12 @@
             <a href="https://www.youtube.com/@kwikwiii" target="_blank" class="content-panel-link">Voir la chaîne</a>
           </div>
           <div class="content-panel-body">
-            <!-- ⚠️ Remplace VIDEO_ID par l'ID YouTube de ta vidéo -->
-            <div class="yt-embed-wrap embed-placeholder">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
-              <p>Remplace ce bloc par l'iframe de ta vidéo</p>
-              <p style="font-size:0.75rem;">URL de ta vidéo : <code>youtu.be/VIDEO_ID</code><br>Remplace par : <code>&lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;</code></p>
+            <div class="yt-embed-wrap" id="yt-embed">
+              <!-- Chargement dynamique via /api/youtube-latest -->
+              <div class="embed-placeholder" id="yt-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+                <p>Chargement de la dernière vidéo…</p>
+              </div>
             </div>
           </div>
         </div>
