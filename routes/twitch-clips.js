@@ -45,13 +45,22 @@ async function getBroadcasterId(token) {
 
 // ── Récupérer le dernier clip ─────────────────────────────
 async function getLatestClip(token, broadcasterId) {
+  // Filtrer sur les 90 derniers jours pour avoir des clips récents
+  const since = new Date();
+  since.setDate(since.getDate() - 90);
+  const startedAt = since.toISOString();
+
   const res = await fetch(
-    `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=1`,
+    `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=20&started_at=${startedAt}`,
     { headers: { 'Client-Id': TWITCH_CLIENT_ID, 'Authorization': `Bearer ${token}` } }
   );
   const data = await res.json();
-  const clip = data?.data?.[0];
-  if (!clip) throw new Error('Aucun clip trouvé');
+  const clips = data?.data ?? [];
+  if (!clips.length) throw new Error('Aucun clip trouvé');
+
+  // Trier par date décroissante et prendre le plus récent
+  clips.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const clip = clips[0];
 
   return {
     id:           clip.id,
