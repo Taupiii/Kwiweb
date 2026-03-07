@@ -881,9 +881,9 @@
         <h2>Derniers <em>contenus</em></h2>
         <div class="section-line"></div>
       </div>
-      <div class="content-grid">
-
-        <div class="content-panel yt-panel reveal">
+      <!-- Ligne 1 : Vidéo YouTube pleine largeur -->
+      <div class="content-grid" style="grid-template-columns:1fr; margin-bottom:24px;">
+        <div class="content-panel reveal">
           <div class="content-panel-head">
             <div class="content-panel-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
@@ -900,25 +900,10 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="content-panel reveal" style="grid-column: 1 / 2;">
-          <div class="content-panel-head">
-            <div class="content-panel-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
-              Dernier Short YouTube
-            </div>
-            <a href="https://www.youtube.com/@kwikwiii/shorts" target="_blank" class="content-panel-link">Voir les Shorts</a>
-          </div>
-          <div class="content-panel-body" style="display:flex;justify-content:center;">
-            <div id="yt-short" style="width:100%;max-width:320px;aspect-ratio:9/16;">
-              <div class="embed-placeholder" id="yt-short-placeholder" style="aspect-ratio:9/16;">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
-                <p>Chargement…</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <!-- Ligne 2 : Clip Twitch pleine largeur -->
+      <div class="content-grid" style="grid-template-columns:1fr; margin-bottom:24px;">
         <div class="content-panel reveal">
           <div class="content-panel-head">
             <div class="content-panel-title">
@@ -936,6 +921,28 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Ligne 3 : Short YouTube + TikTok + Instagram en 3 colonnes -->
+      <div class="content-grid" style="grid-template-columns: repeat(3,1fr);">
+
+        <div class="content-panel reveal">
+          <div class="content-panel-head">
+            <div class="content-panel-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+              Dernier Short
+            </div>
+            <a href="https://www.youtube.com/@kwikwiii/shorts" target="_blank" class="content-panel-link">Voir les Shorts</a>
+          </div>
+          <div class="content-panel-body" style="display:flex;justify-content:center;">
+            <div id="yt-short" style="width:100%;aspect-ratio:9/16;max-height:480px;">
+              <div class="embed-placeholder" id="yt-short-placeholder" style="height:100%;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+                <p>Chargement…</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="content-panel reveal">
           <div class="content-panel-head">
@@ -946,11 +953,30 @@
             <a href="https://www.tiktok.com/@kwi.kwiii" target="_blank" class="content-panel-link">Voir le profil</a>
           </div>
           <div class="content-panel-body">
-            <!-- ⚠️ TikTok → ta vidéo → Partager → Intégrer → colle l'iframe ici -->
-            <div class="embed-placeholder" style="aspect-ratio: 9/16; max-height: 400px;">
+            <div class="embed-placeholder" style="aspect-ratio:9/16;max-height:480px;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
               <p>Intègre une vidéo TikTok ici</p>
               <p style="font-size:0.75rem;">TikTok → ta vidéo → Partager → <strong>Intégrer</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-panel reveal">
+          <div class="content-panel-head">
+            <div class="content-panel-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="url(#ig-grad2)">
+                <defs><linearGradient id="ig-grad2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+              Post Instagram
+            </div>
+            <a href="https://www.instagram.com/kwi.kwiii/" target="_blank" class="content-panel-link">Voir le profil</a>
+          </div>
+          <div class="content-panel-body">
+            <div class="embed-placeholder" style="aspect-ratio:9/16;max-height:480px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--sand-4)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              <p>Intègre un post Instagram ici</p>
+              <p style="font-size:0.75rem;">Instagram → ton post → ··· → <strong>Intégrer</strong></p>
             </div>
           </div>
         </div>
