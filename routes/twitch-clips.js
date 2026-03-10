@@ -13,7 +13,7 @@ const TWITCH_BROADCASTER_LOGIN = 'kwikwiii';
 
 // Cache 10 minutes
 let cache = { data: null, expires: 0 };
-const CACHE_TTL = 10 * 60 * 1000;
+const CACHE_TTL = 0; // Pas de cache — clip aléatoire à chaque visite
 
 // ── Token Twitch ──────────────────────────────────────────
 async function getTwitchToken() {
@@ -45,17 +45,33 @@ async function getBroadcasterId(token) {
 
 // ── Récupérer le dernier clip ─────────────────────────────
 async function getLatestClip(token, broadcasterId) {
-  const res = await fetch(
-    `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=20`,
-    { headers: { 'Client-Id': TWITCH_CLIENT_ID, 'Authorization': `Bearer ${token}` } }
-  );
-  const data = await res.json();
-  const clips = data?.data ?? [];
+
+  async function fetchClipsSince(daysAgo) {
+    const since = new Date();
+    since.setDate(since.getDate() - daysAgo);
+    let allClips = [];
+    let cursor = null;
+
+    while (true) {
+      const url = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=100&started_at=${since.toISOString()}${cursor ? '&after=' + cursor : ''}`;
+      const res  = await fetch(url, { headers: { 'Client-Id': TWITCH_CLIENT_ID, 'Authorization': `Bearer ${token}` } });
+      const data = await res.json();
+      const clips = data?.data ?? [];
+      allClips = allClips.concat(clips);
+      cursor = data?.pagination?.cursor;
+      if (!cursor || !clips.length) break;
+    }
+    return allClips;
+  }
+
+  // Essaie 30j, puis 90j, puis 365j
+  let clips = await fetchClipsSince(30);
+  if (!clips.length) clips = await fetchClipsSince(90);
+  if (!clips.length) clips = await fetchClipsSince(365);
   if (!clips.length) throw new Error('Aucun clip trouvé');
 
-  // Trier par date décroissante et prendre le plus récent
   clips.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  const clip = clips[0];
+  const clip = clips[Math.floor(Math.random() * clips.length)];
 
   return {
     id:           clip.id,

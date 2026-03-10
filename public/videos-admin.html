@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidéos proposées – Kwikwiii</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1e140e; --surface: #2e1f15; --surface2: #3a2819;
+    --border: rgba(160,110,65,0.35); --accent: #d4924a;
+    --cream: #f5ede0; --beige: #c9a882; --muted: #8a6848;
+    --success: #6dbf82; --danger: #e06060; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--cream); min-height:100vh; }
+
+  .header {
+    background:var(--surface); border-bottom:2px solid var(--border);
+    padding:0 40px; height:64px; display:flex; align-items:center;
+    justify-content:space-between; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 16px rgba(0,0,0,0.3);
+  }
+  .header a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:700;
+    padding:7px 16px; border-radius:30px; border:1.5px solid var(--border); transition:all 0.2s; }
+  .header a:hover { color:var(--accent); border-color:var(--accent); }
+  .header h1 { font-family:'Baloo 2',sans-serif; font-size:18px; font-weight:800; }
+  .badge { background:rgba(212,146,74,0.15); border:1.5px solid rgba(212,146,74,0.3);
+    color:var(--accent); font-size:12px; font-weight:800; padding:4px 14px; border-radius:20px; }
+
+  .main { max-width:1200px; margin:0 auto; padding:32px; }
+
+  .auth-box { background:var(--surface); border:2px solid var(--border); border-radius:var(--radius);
+    padding:32px; max-width:400px; margin:80px auto; text-align:center; }
+  .auth-box h2 { font-family:'Baloo 2',sans-serif; font-size:20px; margin-bottom:20px; color:var(--beige); }
+  .auth-input { width:100%; background:var(--surface2); border:2px solid var(--border);
+    border-radius:8px; color:var(--cream); font-family:'Nunito',sans-serif; font-size:14px;
+    padding:12px 16px; outline:none; margin-bottom:12px; }
+  .auth-input:focus { border-color:var(--accent); }
+  .auth-btn { width:100%; background:var(--accent); color:var(--bg); font-family:'Nunito',sans-serif;
+    font-weight:800; font-size:14px; padding:12px; border-radius:30px; border:none; cursor:pointer; }
+
+  .video-card { background:var(--surface); border:2px solid var(--border); border-radius:var(--radius);
+    overflow:hidden; margin-bottom:20px; display:grid; grid-template-columns:400px 1fr;
+    transition:border-color 0.2s; box-shadow:0 4px 24px rgba(0,0,0,0.3); }
+  .video-card:hover { border-color:rgba(212,146,74,0.5); }
+
+  .video-preview { background:var(--bg); aspect-ratio:16/9; overflow:hidden; }
+  .video-preview iframe { width:100%; height:100%; border:none; }
+  .video-preview .thumb { width:100%; height:100%; object-fit:cover; }
+  .video-preview .no-preview { display:flex; align-items:center; justify-content:center;
+    height:100%; color:var(--muted); font-size:13px; font-weight:700; }
+
+  .video-info { padding:20px; display:flex; flex-direction:column; gap:12px; }
+  .video-meta { display:flex; flex-direction:column; gap:6px; }
+  .meta-row { display:flex; align-items:center; gap:8px; font-size:13px; }
+  .meta-label { color:var(--muted); font-weight:800; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; min-width:60px; }
+  .meta-value { color:var(--cream); font-weight:600; }
+  .meta-url { color:var(--accent); text-decoration:none; font-size:12px; word-break:break-all; }
+  .meta-url:hover { text-decoration:underline; }
+
+  .video-actions { display:flex; gap:10px; margin-top:auto; }
+  .btn { font-family:'Nunito',sans-serif; font-weight:800; font-size:12px; padding:9px 20px;
+    border-radius:30px; border:none; cursor:pointer; transition:all 0.2s; letter-spacing:0.04em; }
+  .btn-open { background:rgba(212,146,74,0.15); color:var(--accent); border:1.5px solid rgba(212,146,74,0.3); }
+  .btn-open:hover { background:rgba(212,146,74,0.28); }
+  .btn-delete { background:rgba(224,96,96,0.15); color:var(--danger); border:1.5px solid rgba(224,96,96,0.3); }
+  .btn-delete:hover { background:rgba(224,96,96,0.28); }
+
+  .date-tag { font-size:11px; color:var(--muted); font-weight:700; }
+  .pseudo-tag { display:inline-flex; align-items:center; gap:5px; background:rgba(212,146,74,0.1);
+    border:1px solid rgba(212,146,74,0.2); color:var(--accent); font-size:12px; font-weight:800;
+    padding:3px 10px; border-radius:20px; }
+
+  .empty { text-align:center; padding:60px; color:var(--muted); font-weight:700; font-size:14px; }
+  .empty span { font-size:40px; display:block; margin-bottom:12px; opacity:0.4; }
+
+  .toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+  .toolbar-title { font-family:'Baloo 2',sans-serif; font-size:15px; font-weight:800;
+    color:var(--beige); letter-spacing:0.04em; text-transform:uppercase; }
+  .btn-refresh { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; padding:8px 20px;
+    border-radius:30px; border:1.5px solid var(--border); background:var(--surface); color:var(--beige);
+    cursor:pointer; transition:all 0.2s; }
+  .btn-refresh:hover { border-color:var(--accent); color:var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="/admin.html">← Retour Admin</a>
+  <h1>🎬 Vidéos proposées</h1>
+  <div><span class="badge" id="count">— vidéos</span></div>
+</div>
+
+<div class="main" id="main">
+  <div class="auth-box" id="auth-box">
+    <h2>🔐 Accès Admin</h2>
+    <input type="password" class="auth-input" id="admin-key" placeholder="Clé admin" />
+    <button class="auth-btn" onclick="login()">Accéder</button>
+  </div>
+</div>
+
+<script>
+let ADMIN_KEY = '';
+
+function login() {
+  ADMIN_KEY = document.getElementById('admin-key').value;
+  if (!ADMIN_KEY) return;
+  fetchVideos();
+}
+
+document.getElementById('admin-key').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+async function fetchVideos() {
+  try {
+    const res  = await fetch('/api/submissions/videos', { headers: { 'x-admin-key': ADMIN_KEY } });
+    if (res.status === 401) { alert('Clé incorrecte'); return; }
+    const data = await res.json();
+
+    document.getElementById('auth-box').style.display = 'none';
+    document.getElementById('count').textContent = `${data.length} vidéo${data.length !== 1 ? 's' : ''}`;
+
+    const main = document.getElementById('main');
+
+    if (!data.length) {
+      main.innerHTML = '<div class="empty"><span>🎬</span>Aucune vidéo proposée pour l\'instant.</div>';
+      return;
+    }
+
+    main.innerHTML = `
+      <div class="toolbar">
+        <span class="toolbar-title">Vidéos proposées</span>
+        <button class="btn-refresh" onclick="fetchVideos()">↻ Rafraîchir</button>
+      </div>
+      <div id="videos-list"></div>
+    `;
+
+    const list = document.getElementById('videos-list');
+    data.forEach(v => list.appendChild(buildCard(v)));
+
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
+}
+
+function getVideoId(url) {
+  let m;
+  if ((m = url.match(/youtube\.com\/watch\?v=([^&]+)/))) return { type:'yt', id:m[1] };
+  if ((m = url.match(/youtu\.be\/([^?]+)/)))              return { type:'yt', id:m[1] };
+  if ((m = url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/))) return { type:'tt', id:m[1] };
+  if ((m = url.match(/clips\.twitch\.tv\/([^?]+)/)))      return { type:'tw', id:m[1] };
+  if ((m = url.match(/twitch\.tv\/\w+\/clip\/([^?]+)/)))  return { type:'tw', id:m[1] };
+  return null;
+}
+
+function buildCard(v) {
+  const card = document.createElement('div');
+  card.className = 'video-card';
+  card.id = 'card-' + v.id;
+
+  const info = getVideoId(v.url);
+  let previewHTML = '';
+
+  if (info?.type === 'yt') {
+    previewHTML = `<iframe src="https://www.youtube.com/embed/${info.id}?rel=0" allowfullscreen></iframe>`;
+  } else if (info?.type === 'tw') {
+    previewHTML = `<iframe src="https://clips.twitch.tv/embed?clip=${info.id}&parent=${location.hostname}&autoplay=false" allowfullscreen></iframe>`;
+  } else {
+    previewHTML = `<div class="no-preview">Aperçu non disponible</div>`;
+  }
+
+  const date = new Date(v.createdAt).toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  card.innerHTML = `
+    <div class="video-preview">${previewHTML}</div>
+    <div class="video-info">
+      <div class="video-meta">
+        <div class="meta-row"><span class="meta-label">Proposé par</span><span class="pseudo-tag">🎮 ${v.pseudo}</span></div>
+        <div class="meta-row"><span class="meta-label">Date</span><span class="date-tag">${date}</span></div>
+        <div class="meta-row"><span class="meta-label">Lien</span><a href="${v.url}" target="_blank" class="meta-url">${v.url}</a></div>
+      </div>
+      <div class="video-actions">
+        <button class="btn btn-open" onclick="window.open('${v.url}','_blank')">🔗 Ouvrir</button>
+        <button class="btn btn-delete" onclick="deleteVideo('${v.id}')">🗑️ Supprimer</button>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+async function deleteVideo(id) {
+  if (!confirm('Supprimer cette vidéo ?')) return;
+  await fetch(`/api/submissions/video/${id}`, { method:'DELETE', headers:{'x-admin-key':ADMIN_KEY} });
+  document.getElementById('card-' + id)?.remove();
+  const count = document.querySelectorAll('.video-card').length;
+  document.getElementById('count').textContent = `${count} vidéo${count !== 1 ? 's' : ''}`;
+}
+</script>
+</body>
+</html>

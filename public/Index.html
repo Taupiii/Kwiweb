@@ -512,6 +512,97 @@
     }
     .modal-close:hover { color: var(--text); border-color: var(--sand-4); }
 
+    /* PROPOSITIONS */
+    .submit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .submit-panel {
+      background: var(--sand-1);
+      border: 1px solid var(--sand-2);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .submit-panel-icon { font-size: 2rem; }
+    .submit-panel-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--dark);
+    }
+    .submit-panel-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .submit-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .submit-input {
+      background: var(--sand-0);
+      border: 1px solid var(--sand-3);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .submit-input:focus { border-color: var(--accent); }
+    .submit-input::placeholder { color: var(--muted); }
+    .submit-file-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sand-0);
+      border: 1px dashed var(--sand-3);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .submit-file-label:hover { border-color: var(--accent); color: var(--accent); }
+    .submit-file-label.has-file { border-color: var(--accent); color: var(--text); border-style: solid; }
+    .submit-btn {
+      background: var(--dark);
+      color: var(--sand-0);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+    }
+    .submit-btn:hover { background: var(--brown); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .submit-feedback {
+      font-size: 0.82rem;
+      min-height: 20px;
+      text-align: center;
+    }
+    .submit-feedback.success { color: #5a8a4a; }
+    .submit-feedback.error   { color: #c04040; }
+
+    @media (max-width: 900px) {
+      .submit-grid { grid-template-columns: 1fr; }
+    }
+
     /* RÉSEAUX */
     .platforms-grid {
       display: grid;
@@ -715,6 +806,7 @@
       <li><a href="#planning">Planning</a></li>
       <li><a href="#reseaux">Réseaux</a></li>
       <li><a href="#contenu">Contenu</a></li>
+      <li><a href="#proposer">Participer</a></li>
     </ul>
     <a href="https://www.twitch.tv/kwikwiii" target="_blank" class="nav-live">
       <span class="live-dot"></span>
@@ -825,12 +917,52 @@
     </div>
   </section>
 
+  <!-- PROPOSITIONS VIEWERS -->
+  <div class="divider"></div>
+  <section id="proposer" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-num">03</span>
+        <h2>Participe au <em>live</em></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="submit-grid reveal">
+        <div class="submit-panel">
+          <div class="submit-panel-icon">🎬</div>
+          <h3 class="submit-panel-title">Propose une vidéo drôle</h3>
+          <p class="submit-panel-desc">Tu as une vidéo qui pourrait me faire rire le dimanche ? Envoie-la ! Je la regarderai en live dans le segment "Essayez de ne pas rire".</p>
+          <div class="submit-form" id="video-form">
+            <input type="text" class="submit-input" id="video-pseudo" placeholder="Ton pseudo Twitch" maxlength="50" />
+            <input type="url" class="submit-input" id="video-url" placeholder="Lien YouTube, TikTok ou Twitch..." />
+            <button class="submit-btn" onclick="submitVideo()">Envoyer la vidéo →</button>
+            <p class="submit-feedback" id="video-feedback"></p>
+          </div>
+        </div>
+        <div class="submit-panel">
+          <div class="submit-panel-icon">📸</div>
+          <h3 class="submit-panel-title">Propose une photo</h3>
+          <p class="submit-panel-desc">Envoie une photo pour le jeu du live ! Elle pourra être utilisée dans une prochaine session.</p>
+          <div class="submit-form" id="photo-form">
+            <input type="text" class="submit-input" id="photo-pseudo" placeholder="Ton pseudo Twitch" maxlength="50" />
+            <label class="submit-file-label" id="photo-file-label">
+              <input type="file" id="photo-file" accept="image/*" onchange="updateFileLabel()" style="display:none;" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span id="file-label-text">Choisir une photo…</span>
+            </label>
+            <button class="submit-btn" onclick="submitPhoto()">Envoyer la photo →</button>
+            <p class="submit-feedback" id="photo-feedback"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- RÉSEAUX -->
   <div class="divider"></div>
   <section id="reseaux" class="section">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>Mes <em>réseaux</em></h2>
         <div class="section-line"></div>
       </div>
@@ -877,7 +1009,7 @@
   <section id="contenu" class="section">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-num">04</span>
+        <span class="section-num">05</span>
         <h2>Derniers <em>contenus</em></h2>
         <div class="section-line"></div>
       </div>
@@ -1035,6 +1167,7 @@
             <li><a href="#planning">Planning</a></li>
             <li><a href="#reseaux">Réseaux</a></li>
             <li><a href="#contenu">Contenu</a></li>
+            <li><a href="#proposer">Participer</a></li>
           </ul>
         </div>
       </div>
@@ -1213,6 +1346,87 @@
     }
 
     loadTwitchClip();
+
+    // ── Propositions viewers ───────────────────────────────
+    function updateFileLabel() {
+      const file = document.getElementById('photo-file').files[0];
+      const label = document.getElementById('photo-file-label');
+      const text  = document.getElementById('file-label-text');
+      if (file) {
+        text.textContent = file.name;
+        label.classList.add('has-file');
+      }
+    }
+
+    async function submitVideo() {
+      const pseudo   = document.getElementById('video-pseudo').value.trim();
+      const url      = document.getElementById('video-url').value.trim();
+      const feedback = document.getElementById('video-feedback');
+      const btn      = document.querySelector('#video-form .submit-btn');
+
+      if (!pseudo) { showFeedback(feedback, 'error', 'Entre ton pseudo Twitch.'); return; }
+      if (!url)    { showFeedback(feedback, 'error', 'Entre un lien vidéo.'); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Envoi…';
+
+      try {
+        const res  = await fetch('/api/submissions/video', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, pseudo }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erreur');
+        showFeedback(feedback, 'success', '✓ Vidéo envoyée, merci !');
+        document.getElementById('video-pseudo').value = '';
+        document.getElementById('video-url').value = '';
+      } catch(e) {
+        showFeedback(feedback, 'error', e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer la vidéo →';
+      }
+    }
+
+    async function submitPhoto() {
+      const pseudo   = document.getElementById('photo-pseudo').value.trim();
+      const file     = document.getElementById('photo-file').files[0];
+      const feedback = document.getElementById('photo-feedback');
+      const btn      = document.querySelector('#photo-form .submit-btn');
+
+      if (!pseudo) { showFeedback(feedback, 'error', 'Entre ton pseudo Twitch.'); return; }
+      if (!file)   { showFeedback(feedback, 'error', 'Choisis une photo.'); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Envoi…';
+
+      try {
+        const form = new FormData();
+        form.append('pseudo', pseudo);
+        form.append('photo', file);
+
+        const res  = await fetch('/api/submissions/photo', { method:'POST', body:form });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erreur');
+        showFeedback(feedback, 'success', '✓ Photo envoyée, merci !');
+        document.getElementById('photo-pseudo').value = '';
+        document.getElementById('photo-file').value = '';
+        document.getElementById('file-label-text').textContent = 'Choisir une photo…';
+        document.getElementById('photo-file-label').classList.remove('has-file');
+      } catch(e) {
+        showFeedback(feedback, 'error', e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer la photo →';
+      }
+    }
+
+    function showFeedback(el, type, msg) {
+      el.textContent = msg;
+      el.className = 'submit-feedback ' + type;
+      setTimeout(() => { el.textContent = ''; el.className = 'submit-feedback'; }, 5000);
+    }
   </script>
 
 </body>
