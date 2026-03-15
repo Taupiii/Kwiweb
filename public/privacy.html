@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité — Kwikwiii</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sand-0: #faf7f2; --sand-1: #f2ece0; --sand-2: #e8dfd0; --sand-3: #d4c9b5;
+      --sand-4: #b8a98e; --brown: #7a6a52; --dark: #2e2519; --text: #3d3122;
+      --muted: #9a8a72; --accent: #c47a3a;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--sand-0); color: var(--text); font-family: var(--font-sans); font-size: 15px; line-height: 1.8; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 56px;
+      background: rgba(250,247,242,0.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--sand-2);
+    }
+    .nav-logo { font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; letter-spacing: 0.06em; color: var(--dark); text-decoration: none; }
+    .nav-logo em { font-style: italic; color: var(--accent); }
+    .nav-back { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+
+    .page { max-width: 760px; margin: 0 auto; padding: 140px 56px 100px; }
+
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    h1 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1.1; color: var(--dark); margin-bottom: 12px; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .page-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 56px; letter-spacing: 0.04em; }
+    .divider { height: 1px; background: var(--sand-2); margin-bottom: 56px; }
+
+    h2 { font-family: var(--font-serif); font-weight: 300; font-size: 1.6rem; color: var(--dark); margin: 48px 0 16px; }
+    h2 em { font-style: italic; color: var(--accent); }
+    p { color: var(--text); margin-bottom: 16px; font-size: 0.95rem; }
+    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(196,122,58,0.3); transition: border-color 0.2s; }
+    a:hover { border-color: var(--accent); }
+    ul { margin: 0 0 16px 20px; }
+    ul li { margin-bottom: 8px; font-size: 0.95rem; color: var(--text); }
+    .highlight { background: var(--sand-1); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 2px; margin-bottom: 16px; }
+    .highlight p { margin: 0; font-size: 0.9rem; }
+
+    footer { background: var(--dark); padding: 40px 56px; margin-top: 100px; }
+    .footer-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--sand-1); }
+    .footer-brand em { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.78rem; color: var(--sand-4); text-decoration: none; letter-spacing: 0.06em; border: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sand-1); }
+    .footer-copy { font-size: 0.75rem; color: var(--sand-4); letter-spacing: 0.04em; width: 100%; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .page { padding: 120px 24px 80px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">kwik<em>wiii</em></a>
+    <a href="/" class="nav-back">← Retour</a>
+  </nav>
+
+  <div class="page">
+    <p class="page-eyebrow">Légal</p>
+    <h1>Politique de <em>confidentialité</em></h1>
+    <p class="page-date">Dernière mise à jour : mars 2026</p>
+    <div class="divider"></div>
+
+    <div class="highlight">
+      <p>En résumé : nous collectons uniquement ce dont nous avons besoin pour faire fonctionner le site. Nous ne vendons aucune donnée et ne les partageons pas avec des tiers.</p>
+    </div>
+
+    <h2><em>1.</em> Qui sommes-nous ?</h2>
+    <p>Ce site est exploité par Kwikwiii, streamer et créateur de contenu indépendant. Pour toute question relative à vos données, contactez-nous via le <a href="https://discord.gg/mS73WUQ4rG" target="_blank">serveur Discord</a>.</p>
+
+    <h2><em>2.</em> Données collectées</h2>
+    <p>Lors de l'utilisation du formulaire de participation, nous collectons :</p>
+    <ul>
+      <li><strong>Pseudo Twitch</strong> — pour identifier votre soumission lors du live</li>
+      <li><strong>Lien vidéo</strong> (YouTube, TikTok, Twitch ou Instagram) — pour la rubrique "Essayez de ne pas rire"</li>
+      <li><strong>Photo</strong> — pour le jeu du live (stockée temporairement sur nos serveurs)</li>
+      <li><strong>5 mots associés à la photo</strong> — pour le jeu du live</li>
+      <li><strong>Niveau de danger choisi</strong> — indicatif pour la modération du contenu</li>
+    </ul>
+    <p>Nous ne collectons pas d'adresse email, de numéro de téléphone, ni aucune donnée d'identification personnelle.</p>
+
+    <h2><em>3.</em> Utilisation des données</h2>
+    <p>Les données soumises sont utilisées exclusivement pour :</p>
+    <ul>
+      <li>Diffuser votre contenu lors des streams Twitch de Kwikwiii</li>
+      <li>Modérer les soumissions avant diffusion</li>
+    </ul>
+    <p>Aucune donnée n'est utilisée à des fins commerciales, publicitaires ou analytiques.</p>
+
+    <h2><em>4.</em> Stockage et durée de conservation</h2>
+    <p>Les données sont stockées sur un serveur sécurisé hébergé par OVH (Union Européenne). Les soumissions sont conservées jusqu'à leur utilisation en stream ou leur suppression manuelle par l'administrateur.</p>
+    <p>Les photos sont supprimées après utilisation en live. Les pseudos et liens vidéos peuvent être conservés à titre d'archive pour une durée maximale de 12 mois.</p>
+
+    <h2><em>5.</em> Partage des données</h2>
+    <p>Vos données ne sont jamais vendues, louées ou partagées avec des tiers. Elles peuvent être visibles lors de la diffusion en direct sur Twitch, conformément à ce que vous avez soumis.</p>
+
+    <h2><em>6.</em> Services tiers</h2>
+    <p>Ce site intègre des services tiers qui peuvent collecter des données indépendamment :</p>
+    <ul>
+      <li><strong>Twitch</strong> — lecteur live et planning (<a href="https://www.twitch.tv/p/legal/privacy-policy/" target="_blank">politique de confidentialité</a>)</li>
+      <li><strong>YouTube</strong> — lecteur vidéo (<a href="https://policies.google.com/privacy" target="_blank">politique de confidentialité</a>)</li>
+      <li><strong>Google Fonts</strong> — polices de caractères (<a href="https://policies.google.com/privacy" target="_blank">politique de confidentialité</a>)</li>
+    </ul>
+
+    <h2><em>7.</em> Vos droits</h2>
+    <p>Vous disposez des droits suivants concernant vos données :</p>
+    <ul>
+      <li><strong>Droit d'accès</strong> — savoir quelles données nous détenons sur vous</li>
+      <li><strong>Droit de suppression</strong> — demander la suppression de vos soumissions</li>
+      <li><strong>Droit de rectification</strong> — corriger des informations incorrectes</li>
+    </ul>
+    <p>Pour exercer ces droits, contactez-nous via le <a href="https://discord.gg/mS73WUQ4rG" target="_blank">serveur Discord</a>.</p>
+
+    <h2><em>8.</em> Cookies</h2>
+    <p>Ce site n'utilise pas de cookies de tracking ou publicitaires. Des cookies techniques peuvent être utilisés par les services tiers intégrés (Twitch, YouTube).</p>
+
+    <h2><em>9.</em> Modifications</h2>
+    <p>Cette politique peut être mise à jour à tout moment. La date de dernière modification est indiquée en haut de cette page.</p>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">kwik<em>wiii</em></div>
+      <div class="footer-links">
+        <a href="/terms.html">Conditions d'utilisation</a>
+        <a href="/privacy.html">Politique de confidentialité</a>
+      </div>
+      <p class="footer-copy">© 2026 Kwikwiii — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

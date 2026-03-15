@@ -517,6 +517,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
+      align-items: stretch;
     }
     .submit-panel {
       background: var(--sand-1);
@@ -538,6 +539,7 @@
       font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.7;
+      flex: 1;
     }
     .submit-form {
       display: flex;
@@ -590,7 +592,33 @@
       text-align: center;
     }
     .submit-btn:hover { background: var(--brown); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; background: var(--sand-3); color: var(--muted); }
+    .words-grid { display: flex; flex-direction: column; gap: 8px; }
+    .words-hint { font-size: 0.8rem; color: var(--muted); font-family: var(--font-sans); }
+    .words-hint span { color: var(--accent); font-weight: 500; }
+    .words-inputs { display: flex; gap: 6px; }
+    .words-inputs .word-input { flex: 1; min-width: 0; padding: 12px 8px; text-align: center; font-size: 0.82rem; }
+
+    .danger-selector { display: flex; flex-direction: column; gap: 8px; }
+    .danger-levels { display: flex; gap: 6px; }
+    .danger-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 6px;
+      background: var(--sand-0);
+      border: 1px solid var(--sand-3);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 1.2rem;
+    }
+    .danger-btn span { font-size: 0.7rem; color: var(--muted); font-family: var(--font-sans); letter-spacing: 0.04em; }
+    .danger-btn:hover { border-color: var(--accent); }
+    .danger-btn.active { border-color: var(--accent); background: var(--sand-1); box-shadow: 0 0 0 2px var(--accent); }
+    .danger-btn.active span { color: var(--accent); font-weight: 500; }
     .submit-feedback {
       font-size: 0.82rem;
       min-height: 20px;
@@ -933,15 +961,25 @@
           <p class="submit-panel-desc">Tu as une vidéo qui pourrait me faire rire le dimanche ? Envoie-la ! Je la regarderai en live dans le segment "Essayez de ne pas rire".</p>
           <div class="submit-form" id="video-form">
             <input type="text" class="submit-input" id="video-pseudo" placeholder="Ton pseudo Twitch" maxlength="50" />
-            <input type="url" class="submit-input" id="video-url" placeholder="Lien YouTube, TikTok ou Twitch..." />
+            <input type="text" class="submit-input" id="video-url" placeholder="Lien YouTube, TikTok ou Twitch..." />
+            <div class="danger-selector">
+              <p class="words-hint">Niveau de danger <span id="danger-label">— choisis</span></p>
+              <div class="danger-levels">
+                <button type="button" class="danger-btn" data-level="1" onclick="selectDanger(1)">😐<span>Bof</span></button>
+                <button type="button" class="danger-btn" data-level="2" onclick="selectDanger(2)">😬<span>Risqué</span></button>
+                <button type="button" class="danger-btn" data-level="3" onclick="selectDanger(3)">😂<span>Solide</span></button>
+                <button type="button" class="danger-btn" data-level="4" onclick="selectDanger(4)">💀<span>Mortel</span></button>
+              </div>
+            </div>
             <button class="submit-btn" onclick="submitVideo()">Envoyer la vidéo →</button>
             <p class="submit-feedback" id="video-feedback"></p>
           </div>
         </div>
+
         <div class="submit-panel">
           <div class="submit-panel-icon">📸</div>
           <h3 class="submit-panel-title">Propose une photo</h3>
-          <p class="submit-panel-desc">Envoie une photo pour le jeu du live ! Elle pourra être utilisée dans une prochaine session.</p>
+          <p class="submit-panel-desc">Envoie une photo pour le jeu du live ! Choisis 5 mots cachés que les viewers devront deviner pendant le stream.</p>
           <div class="submit-form" id="photo-form">
             <input type="text" class="submit-input" id="photo-pseudo" placeholder="Ton pseudo Twitch" maxlength="50" />
             <label class="submit-file-label" id="photo-file-label">
@@ -949,7 +987,17 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
               <span id="file-label-text">Choisir une photo…</span>
             </label>
-            <button class="submit-btn" onclick="submitPhoto()">Envoyer la photo →</button>
+            <div class="words-grid">
+              <p class="words-hint">5 mots à deviner <span id="words-count">(0/5)</span></p>
+              <div class="words-inputs">
+                <input type="text" class="submit-input word-input" placeholder="Mot 1" maxlength="30" oninput="updateWordsCount()" />
+                <input type="text" class="submit-input word-input" placeholder="Mot 2" maxlength="30" oninput="updateWordsCount()" />
+                <input type="text" class="submit-input word-input" placeholder="Mot 3" maxlength="30" oninput="updateWordsCount()" />
+                <input type="text" class="submit-input word-input" placeholder="Mot 4" maxlength="30" oninput="updateWordsCount()" />
+                <input type="text" class="submit-input word-input" placeholder="Mot 5" maxlength="30" oninput="updateWordsCount()" />
+              </div>
+            </div>
+            <button class="submit-btn" id="photo-submit-btn" onclick="submitPhoto()" disabled>5 mots requis pour envoyer</button>
             <p class="submit-feedback" id="photo-feedback"></p>
           </div>
         </div>
@@ -1173,7 +1221,11 @@
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 Kwikwiii — Tous droits réservés.</p>
-        <p class="footer-copy">Fait avec soin ✦</p>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+          <a href="/terms.html" style="font-size:0.75rem;color:var(--sand-4);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;" onmouseover="this.style.color='var(--sand-1)'" onmouseout="this.style.color='var(--sand-4)'">Conditions d'utilisation</a>
+          <a href="/privacy.html" style="font-size:0.75rem;color:var(--sand-4);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;" onmouseover="this.style.color='var(--sand-1)'" onmouseout="this.style.color='var(--sand-4)'">Politique de confidentialité</a>
+          <p class="footer-copy">Fait avec soin ✦</p>
+        </div>
       </div>
     </div>
   </footer>
@@ -1358,6 +1410,16 @@
       }
     }
 
+    let selectedDanger = 0;
+    const dangerLabels = { 1: '😐 Bof', 2: '😬 Risqué', 3: '😂 Solide', 4: '💀 Mortel' };
+
+    function selectDanger(level) {
+      selectedDanger = level;
+      document.querySelectorAll('.danger-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.danger-btn[data-level="${level}"]`).classList.add('active');
+      document.getElementById('danger-label').textContent = dangerLabels[level];
+    }
+
     async function submitVideo() {
       const pseudo   = document.getElementById('video-pseudo').value.trim();
       const url      = document.getElementById('video-url').value.trim();
@@ -1374,13 +1436,16 @@
         const res  = await fetch('/api/submissions/video', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url, pseudo }),
+          body: JSON.stringify({ url, pseudo, danger: selectedDanger }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Erreur');
         showFeedback(feedback, 'success', '✓ Vidéo envoyée, merci !');
         document.getElementById('video-pseudo').value = '';
         document.getElementById('video-url').value = '';
+        selectedDanger = 0;
+        document.querySelectorAll('.danger-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('danger-label').textContent = '— choisis';
       } catch(e) {
         showFeedback(feedback, 'error', e.message);
       } finally {
@@ -1389,14 +1454,30 @@
       }
     }
 
+    function updateWordsCount() {
+      const inputs = document.querySelectorAll('.word-input');
+      const filled = [...inputs].filter(i => i.value.trim().length > 0).length;
+      document.getElementById('words-count').textContent = `(${filled}/5)`;
+      const btn = document.getElementById('photo-submit-btn');
+      if (filled === 5) {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer la photo →';
+      } else {
+        btn.disabled = true;
+        btn.textContent = `5 mots requis pour envoyer`;
+      }
+    }
+
     async function submitPhoto() {
       const pseudo   = document.getElementById('photo-pseudo').value.trim();
       const file     = document.getElementById('photo-file').files[0];
       const feedback = document.getElementById('photo-feedback');
-      const btn      = document.querySelector('#photo-form .submit-btn');
+      const btn      = document.getElementById('photo-submit-btn');
+      const words    = [...document.querySelectorAll('.word-input')].map(i => i.value.trim()).filter(Boolean);
 
       if (!pseudo) { showFeedback(feedback, 'error', 'Entre ton pseudo Twitch.'); return; }
       if (!file)   { showFeedback(feedback, 'error', 'Choisis une photo.'); return; }
+      if (words.length !== 5) { showFeedback(feedback, 'error', 'Entre exactement 5 mots.'); return; }
 
       btn.disabled = true;
       btn.textContent = 'Envoi…';
@@ -1405,6 +1486,7 @@
         const form = new FormData();
         form.append('pseudo', pseudo);
         form.append('photo', file);
+        form.append('words', words.join(','));
 
         const res  = await fetch('/api/submissions/photo', { method:'POST', body:form });
         const data = await res.json();
@@ -1414,11 +1496,12 @@
         document.getElementById('photo-file').value = '';
         document.getElementById('file-label-text').textContent = 'Choisir une photo…';
         document.getElementById('photo-file-label').classList.remove('has-file');
+        document.querySelectorAll('.word-input').forEach(i => i.value = '');
+        updateWordsCount();
       } catch(e) {
         showFeedback(feedback, 'error', e.message);
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Envoyer la photo →';
       }
     }
 

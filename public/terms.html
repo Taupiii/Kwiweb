@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conditions d'utilisation — Kwikwiii</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sand-0: #faf7f2; --sand-1: #f2ece0; --sand-2: #e8dfd0; --sand-3: #d4c9b5;
+      --sand-4: #b8a98e; --brown: #7a6a52; --dark: #2e2519; --text: #3d3122;
+      --muted: #9a8a72; --accent: #c47a3a;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--sand-0); color: var(--text); font-family: var(--font-sans); font-size: 15px; line-height: 1.8; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 56px;
+      background: rgba(250,247,242,0.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--sand-2);
+    }
+    .nav-logo { font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; letter-spacing: 0.06em; color: var(--dark); text-decoration: none; }
+    .nav-logo em { font-style: italic; color: var(--accent); }
+    .nav-back { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+
+    .page { max-width: 760px; margin: 0 auto; padding: 140px 56px 100px; }
+
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    h1 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1.1; color: var(--dark); margin-bottom: 12px; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .page-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 56px; letter-spacing: 0.04em; }
+    .divider { height: 1px; background: var(--sand-2); margin-bottom: 56px; }
+
+    h2 { font-family: var(--font-serif); font-weight: 300; font-size: 1.6rem; color: var(--dark); margin: 48px 0 16px; }
+    h2 em { font-style: italic; color: var(--accent); }
+    p { color: var(--text); margin-bottom: 16px; font-size: 0.95rem; }
+    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(196,122,58,0.3); transition: border-color 0.2s; }
+    a:hover { border-color: var(--accent); }
+    ul { margin: 0 0 16px 20px; }
+    ul li { margin-bottom: 8px; font-size: 0.95rem; color: var(--text); }
+
+    footer { background: var(--dark); padding: 40px 56px; margin-top: 100px; }
+    .footer-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--sand-1); }
+    .footer-brand em { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.78rem; color: var(--sand-4); text-decoration: none; letter-spacing: 0.06em; border: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sand-1); }
+    .footer-copy { font-size: 0.75rem; color: var(--sand-4); letter-spacing: 0.04em; width: 100%; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .page { padding: 120px 24px 80px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">kwik<em>wiii</em></a>
+    <a href="/" class="nav-back">← Retour</a>
+  </nav>
+
+  <div class="page">
+    <p class="page-eyebrow">Légal</p>
+    <h1>Conditions <em>d'utilisation</em></h1>
+    <p class="page-date">Dernière mise à jour : mars 2026</p>
+    <div class="divider"></div>
+
+    <h2><em>1.</em> Acceptation des conditions</h2>
+    <p>En accédant à kwikwiii.online, vous acceptez les présentes conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser ce site.</p>
+
+    <h2><em>2.</em> Description du service</h2>
+    <p>kwikwiii.online est le site vitrine personnel de Kwikwiii, streamer et créateur de contenu. Le site permet notamment :</p>
+    <ul>
+      <li>De consulter le planning des streams Twitch</li>
+      <li>De soumettre des propositions de vidéos drôles pour être diffusées en live</li>
+      <li>De proposer des photos pour le jeu du live</li>
+      <li>D'accéder aux différentes plateformes du créateur</li>
+    </ul>
+
+    <h2><em>3.</em> Contenu soumis par les utilisateurs</h2>
+    <p>En soumettant du contenu (vidéos, photos, pseudo) via ce site, vous déclarez :</p>
+    <ul>
+      <li>Être l'auteur ou disposer des droits nécessaires sur le contenu soumis</li>
+      <li>Que le contenu ne viole aucun droit de tiers</li>
+      <li>Que le contenu est approprié et ne contient pas de matériel illégal, offensant ou nuisible</li>
+      <li>Accepter que le contenu puisse être utilisé et diffusé lors des streams Twitch de Kwikwiii</li>
+    </ul>
+    <p>Kwikwiii se réserve le droit de refuser ou supprimer tout contenu jugé inapproprié, sans obligation d'en informer l'auteur.</p>
+
+    <h2><em>4.</em> Propriété intellectuelle</h2>
+    <p>Tout le contenu du site (design, textes, images) est la propriété de Kwikwiii. Les contenus des plateformes tierces (Twitch, YouTube, TikTok, Instagram) restent la propriété de leurs auteurs respectifs.</p>
+
+    <h2><em>5.</em> Limitation de responsabilité</h2>
+    <p>Ce site est fourni "tel quel", sans garantie d'aucune sorte. Kwikwiii ne saurait être tenu responsable de toute interruption de service, perte de données ou dommage indirect lié à l'utilisation du site.</p>
+
+    <h2><em>6.</em> Liens externes</h2>
+    <p>Ce site contient des liens vers des plateformes tierces (Twitch, YouTube, TikTok, Instagram, Discord). Kwikwiii n'est pas responsable du contenu ou des pratiques de ces plateformes.</p>
+
+    <h2><em>7.</em> Modifications</h2>
+    <p>Ces conditions peuvent être modifiées à tout moment. La date de dernière mise à jour est indiquée en haut de cette page. L'utilisation continue du site vaut acceptation des conditions modifiées.</p>
+
+    <h2><em>8.</em> Contact</h2>
+    <p>Pour toute question, vous pouvez contacter Kwikwiii via le <a href="https://discord.gg/mS73WUQ4rG" target="_blank">serveur Discord</a>.</p>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">kwik<em>wiii</em></div>
+      <div class="footer-links">
+        <a href="/terms.html">Conditions d'utilisation</a>
+        <a href="/privacy.html">Politique de confidentialité</a>
+      </div>
+      <p class="footer-copy">© 2026 Kwikwiii — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
