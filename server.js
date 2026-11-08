@@ -8,6 +8,12 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ── Liens courts ──────────────────────────────────────────
+// 302 (pas 301) pour que le navigateur ne mémorise pas la cible si le lien change.
+app.get('/Midnight', (req, res) => {
+  res.redirect(302, 'https://www.worldofwarcraft.com/invite/74qNZzwUd2?region=EU&faction=Horde');
+});
+
 // ── Fichiers statiques (site vitrine) ─────────────────────
 app.use(express.static(path.join(__dirname, 'public')));
 
